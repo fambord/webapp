@@ -1,0 +1,33 @@
+name: Deploy to R2D2
+
+on:
+  push:
+    branches: [r2d2]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    environment: r2d2
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          VITE_API_PORT: ${{ secrets.VITE_API_PORT }}
+          VITE_API_VERSION: ${{ secrets.VITE_API_VERSION }}
+          VITE_UI_VERSION: ${{ secrets.VITE_UI_VERSION }}
+
+      - name: Deploy to web root
+        run: |
+          sudo rm -rf /var/www/fambord/*
+          sudo cp -r dist/* /var/www/fambord/
+          sudo chown -R www-data:www-data /var/www/fambord/

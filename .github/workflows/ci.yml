@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [development]
+  pull_request:
+    branches: [r2d2]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run lint
+
+      - name: Type check
+        run: npx tsc --noEmit
+
+      - name: Build
+        run: npm run build
+        env:
+          VITE_API_URL: localhost
+          VITE_API_PORT: '3000'
+          VITE_API_VERSION: v1
+          VITE_UI_VERSION: '0.0.0'
