@@ -36,7 +36,7 @@ export const TaskRowActions = ({ row }: TaskRowActionProps) => {
 
   const handleDuplicateTask = () => {
     // Create a copy of the original task, omitting the id
-    const { id, ...originalTask } = row.original;
+    const {...originalTask } = row.original;
 
     // Modify title to indicate it's a duplicate
     const newTask = {

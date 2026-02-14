@@ -252,6 +252,11 @@ function MissingComponentsTile() {
 }
 const sections = [
   {
+    id: "sheet-tile",
+    title: "Sheet",
+    children: <SheetTile />,
+  },
+  {
     id: "action-modal",
     title: "Action Modal",
     children: <ActionModalTile />,
