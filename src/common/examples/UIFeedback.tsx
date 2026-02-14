@@ -14,22 +14,6 @@ import { CodeBlockData } from "@/common/ui/typography/code-block";
 import { Header4 } from "@/common/ui/typography/typography";
 import { toast } from "sonner";
 
-function SomeTile() {
-  const code: CodeBlockData[] = [
-    { language: "tsx", filename: "code", code: `code here` },
-  ];
-  return (
-    <Tile
-      title="Tile"
-      description="Tile is a reusable wrapper that has props for title and description."
-    >
-      <p>Some Component Here</p>
-      <Separator className="my-4" />
-      <Code codeData={code} />
-    </Tile>
-  );
-}
-
 function LoadingRowsTile() {
   const code: CodeBlockData[] = [
     {

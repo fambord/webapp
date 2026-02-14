@@ -1,0 +1,136 @@
+# Fambord Frontend - Windsurf Rules
+
+## Project Context
+- React 19 SPA with Vite 7
+- TanStack Router for file-based typesafe routing
+- TanStack Query for server-state management
+- Shadcn/UI (Radix primitives) for components
+- TailwindCSS 4 for styling
+- Axios for HTTP via custom apiClient wrapper
+- Zod + React Hook Form for form validation
+- Lucide React for icons
+- TypeScript strict mode enabled
+
+## Code Style
+- Use `@/` path alias for all imports (maps to `src/`)
+- Single quotes, 2-space indent, trailing commas (see .prettierrc)
+- Functional components only, no class components
+- Use arrow functions for component definitions in features
+- Use named exports for components, default export only for pages/app
+
+## Project Structure
+```
+src/
+├── api/              # Global API client, endpoints, shared API utilities
+├── common/           # Shared UI components, hooks, utils, layout, theme
+│   ├── ui/           # Shadcn/UI components organized by category
+│   ├── hooks/        # Shared custom hooks
+│   ├── layout/       # App layout components
+│   ├── theme/        # Theme provider and hooks
+│   ├── error/        # Error boundary and error pages
+│   └── utils/        # Shared utility functions
+├── features/         # Feature modules (domain-driven)
+│   └── [feature]/
+│       ├── api/      # Feature-specific API functions
+│       ├── components/ # Feature-specific components
+│       ├── hooks/    # Feature-specific hooks (queries, mutations)
+│       ├── datatable/ # Feature-specific data table configs
+│       └── types.ts  # Feature-specific TypeScript types
+├── routes/           # TanStack Router file-based routes
+│   ├── (app)/        # Authenticated app routes
+│   ├── (auth)/       # Auth routes (login, register)
+│   └── __root.tsx    # Root layout
+└── globals.css       # Global styles and Tailwind imports
+```
+
+## Feature Module Pattern
+Every feature follows this structure:
+- `types.ts` — interfaces, enums, type definitions
+- `api/[feature]Api.ts` — API functions using apiClient
+- `hooks/use[Feature]Query.ts` — TanStack Query hooks for fetching
+- `hooks/use[Feature]Mutations.ts` — TanStack Query hooks for mutations
+- `components/` — React components specific to the feature
+
+## API Layer Pattern
+```typescript
+// features/[feature]/api/[feature]Api.ts
+export const featureApi = {
+  getAll: () => apiClient.get<ResponseType>(API_ENDPOINTS.FEATURE.GET_ALL),
+  getOne: (id: string) => apiClient.get<Type>(API_ENDPOINTS.FEATURE.GET_ONE(id)),
+  create: (data: Partial<Type>) => apiClient.post<Type>(API_ENDPOINTS.FEATURE.CREATE, data),
+  update: (id: string, data: Partial<Type>) => apiClient.patch<Type>(API_ENDPOINTS.FEATURE.UPDATE(id), data),
+  delete: (id: string) => apiClient.delete<void>(API_ENDPOINTS.FEATURE.DELETE(id)),
+};
+```
+
+## Query Hook Pattern
+```typescript
+// features/[feature]/hooks/use[Feature]Query.ts
+export const useFeatureQuery = () => {
+  const { data, isLoading, error } = useQuery<ResponseType>({
+    queryKey: ['feature'],
+    queryFn: featureApi.getAll,
+  });
+  return { data, isLoading, error };
+};
+```
+
+## Mutation Hook Pattern
+```typescript
+// features/[feature]/hooks/use[Feature]Mutations.ts
+export const useFeatureMutations = () => {
+  const queryClient = useQueryClient();
+  const createMutation = useMutation({
+    mutationFn: featureApi.create,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['feature'] }),
+  });
+  return { createMutation };
+};
+```
+
+## Component Conventions
+- Shadcn/UI components live in `src/common/ui/` organized by category
+- Feature components live in `src/features/[feature]/components/`
+- Use Radix primitives via Shadcn — do not install raw Radix directly
+- Use `cn()` utility from `@/common/utils` for conditional classNames
+- Use Lucide icons — import from `lucide-react`
+- Toast notifications via Sonner (`toast.success()`, `toast.error()`)
+
+## Routing
+- File-based routing via TanStack Router plugin
+- Route tree auto-generated in `routeTree.gen.ts` — never edit manually
+- Route groups: `(app)` for authenticated, `(auth)` for public
+- Auth context available in route loaders via `context.auth`
+- Query client available in route loaders via `context.queryClient`
+
+## Forms
+- Use React Hook Form with Zod resolver for validation
+- Define Zod schemas alongside form components
+- Use Shadcn Form components for consistent styling
+
+## State Management
+- Server state: TanStack Query (queries + mutations)
+- Auth state: React Context (AuthProvider)
+- Theme state: React Context (ThemeProvider)
+- No Redux or Zustand — keep it simple
+
+## Environment Variables
+- Prefix with `VITE_` for client-side access
+- Access via `import.meta.env.VITE_*`
+- API config: VITE_API_URL, VITE_API_PORT, VITE_API_VERSION
+
+## Git Workflow
+- Feature branches merge into development
+- development merges into r2d2 (test server deploy)
+- CI runs on development pushes and r2d2 PRs
+- Deploy triggers on r2d2 merge via self-hosted runner
+- Frontend is built as static files and served via nginx/similar on r2d2
+
+## Do NOT
+- Add comments or documentation unless asked
+- Edit routeTree.gen.ts — it is auto-generated
+- Use raw Radix primitives — use Shadcn/UI wrappers
+- Install new UI libraries without discussing first
+- Use inline styles — use Tailwind classes
+- Use `any` type — leverage TypeScript strict mode
+- Store sensitive data in environment variables (they are bundled into the client)
