@@ -13,7 +13,7 @@ function SomeTile() {
       title="Tile"
       description="Tile is a reusable wrapper that has props for title and description."
     >
-      <p>Some Component Here</p>
+      <p>Some Component Goes Here</p>
       <Separator className="my-4" />
       <Code codeData={code} />
     </Tile>
