@@ -28,6 +28,5 @@ jobs:
 
       - name: Deploy to web root
         run: |
-          sudo rm -rf /var/www/fambord/*
-          sudo cp -r dist/* /var/www/fambord/
-          sudo chown -R www-data:www-data /var/www/fambord/
+          rm -rf /var/www/fambord/*
+          cp -r dist/* /var/www/fambord/
