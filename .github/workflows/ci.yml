@@ -4,7 +4,7 @@ on:
   push:
     branches: [development]
   pull_request:
-    branches: [r2d2]
+    branches: [development, r2d2]
 
 jobs:
   ci:
