@@ -30,8 +30,8 @@ const LandingCard = ({
 export const LandingHero = () => {
   return (
     <>
-      <section className="container w-full mx-auto px-4 py-16 flex flex-col md:flex-row items-center space-x-4">
-        <div className="md:w-1/2 md:pr-8 mb-8 md:mb-0">
+      <section className="container w-full mx-auto px-4 flex flex-col md:flex-row items-center gap-8">
+        <div className="md:w-1/2 md:pr-8 text-center md:text-left">
           <Header1 className="bg-linear-to-r from-primary to-chart-2 text-transparent bg-clip-text">
             Fambord: Turning tasks into treasure!
           </Header1>
@@ -39,7 +39,7 @@ export const LandingHero = () => {
             Fambord is a fun and interactive app that helps kids manage their
             chores while earning points that can be redeemed for rewards.
           </Paragraph>
-          <div className="my-8 flex flex-row justify-center items-center space-x-8">
+          <div className="my-8 flex flex-col sm:flex-row justify-center items-center gap-4">
             <Button variant={"primary"} size={"huge"}>
               Explore the Features
             </Button>
@@ -57,33 +57,26 @@ export const LandingHero = () => {
         </div>
       </section>
       <section className="bg-background py-16">
-        <div className="mb-8 w-1/3">
-          <Header2 className="text-3xl">Be a super hero!</Header2>
-          <Paragraph>
-            Explore the great features and see how fun it can be to manage daily
-            and weekly chores!
-          </Paragraph>
-        </div>
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             <LandingCard
-              header="Chores Tracker"
+              header="Track chores"
               content="Take care of your responsibilities with ease!"
-            />
-            <LandingCard
-              header="Stay Fit"
-              content="Stay fit and active to get bonus points!"
             />
             <LandingCard
               header="Earn Rewards"
               content="Each day, you can earn points towards a weekly payout!"
+            />
+            <LandingCard
+              header="Stay Fit"
+              content="Stay fit and active to get bonus points!"
             />
           </div>
         </div>
       </section>
       <section>
         <div className="container mx-auto flex flex-col items-center gap-6">
-          <Header2>Ready to get started?</Header2>
+          <Header2>Ready to start?</Header2>
           <Link
             to="/login"
             className="bg-highlight text-highlight-foreground py-3 px-6 rounded-lg inline-block transition duration-300"

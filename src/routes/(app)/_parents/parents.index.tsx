@@ -34,13 +34,13 @@ function ParentsIndexPage() {
       {kidIds && kidIds.length > 0 ? (
         <Tabs defaultValue={kidIds[0]} className="w-full max-w-6xl mx-auto">
           <TabsList className="w-full flex justify-center gap-2 rounded-none h-12">
-            {kidProfiles?.map((profile) => (
+            {kidProfiles?.map((kid) => (
               <TabsTrigger
-                key={`trigger-${profile.profile.userId}`}
-                value={profile.profile.userId}
+                key={`trigger-${kid.profile.userId}`}
+                value={kid.profile.userId}
                 className="flex-1 font-medium text-2xl"
               >
-                {profile.profile.firstName || profile.profile.username}
+                {kid.profile.firstName}
               </TabsTrigger>
             ))}
           </TabsList>
