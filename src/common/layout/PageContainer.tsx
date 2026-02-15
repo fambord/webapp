@@ -20,7 +20,7 @@ export const PageContainer = ({
     <>
       <main
         className={cn(
-          "max-w-[1680px] w-[90%] mx-auto p-1 md:p-2 lg:p-4 flex-1",
+          "max-w-420 w-[90%] mx-auto p-1 md:p-2 lg:p-4 flex-1",
           className,
         )}
       >

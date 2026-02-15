@@ -1,6 +1,7 @@
 import { UserGroup } from "@/features/user/types";
 import {
   ChartLineIcon,
+  CogIcon,
   Gamepad2Icon,
   HandCoinsIcon,
   HomeIcon,
@@ -32,6 +33,7 @@ export const parentNavItems: NavItem[] = [
   { href: "/parents/approvals", label: "Approvals", icon: ShieldCheckIcon },
   { href: "/parents/achievements", label: "Achievements", icon: TrophyIcon },
   { href: "/parents/rewards", label: "Rewards", icon: HandCoinsIcon },
+  { href: "/parents/settings", label: "Settings", icon: CogIcon },
 ];
 
 export const kidNavItems: NavItem[] = [
