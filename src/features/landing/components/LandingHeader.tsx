@@ -21,9 +21,6 @@ export const LandingHeader = () => {
         <span className="text-4xl font-bold">
           <AppLogo />
         </span>
-        <div className="block md:hidden">
-          <span>mobile</span>
-        </div>
         <nav className="hidden md:block">
           <GuestNavigation />
         </nav>
