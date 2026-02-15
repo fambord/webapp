@@ -8,7 +8,9 @@ export const AppSettingsCard = () => {
       description="Manage how the app works for your family."
       icon={<AppWindowIcon />}
     >
-      <div>Content</div>
+      <div>This should have the accounting settings.</div>
+      <div>Points per dollar</div>
+      <div>Payout thresholds</div>
     </InfoCard>
   )
 }

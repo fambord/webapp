@@ -8,7 +8,9 @@ export const GeneralSettingsCard = () => {
       description="Manage general application settings."
       icon={<CloudCogIcon/>}
     >
-      <div>Content</div>
+      <div>This could be a list of the general settings.</div>
+      <div>Each setting should have a toggle to enable or disable it.</div>
+      <div>Could be timeouts, color schemes, etc.</div>
     </InfoCard>
   )
 }

@@ -8,7 +8,8 @@ export const NotificationSettingsCard = () => {
       description="Set when to get notified about your family's activity."
       icon={<AlarmCheckIcon/>}
     >
-      <div>Content</div>
+      <div>This should be a list of the notifications.</div>
+      <div>Each notification should have a toggle to enable or disable it.</div>
     </InfoCard>
   )
 }
